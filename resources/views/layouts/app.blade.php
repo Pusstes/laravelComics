@@ -1,23 +1,20 @@
-
-@extends('layouts.app', ['title' => 'Aplicación'])
-
-@section('content')
-<div class="container mt-4">
-    <div class="card border-0 shadow-lg rounded-4">
-        <div class="card-header bg-dark text-white rounded-top-4">
-            <h5 class="mb-0">
-                <i class="fas fa-cogs me-2"></i>Ajustes de la Aplicación
-            </h5>
-        </div>
-        <div class="card-body">
-            <h4 class="fw-bold">Configuración General</h4>
-            <p class="mt-3">Aquí puedes modificar la configuración de la aplicación.</p>
-            <div class="d-flex justify-content-end gap-2">
-                <a href="{{ route('configuracion.edit') }}" class="btn btn-primary rounded-pill px-4">
-                    <i class="fas fa-edit me-1"></i>Editar Configuración
-                </a>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Cómics - @yield('title')</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    @stack('styles')
+</head>
+<body class="bg-light">
+    @include('layouts.partials.nav')
+    <div class="container py-4">
+        @yield('content')
     </div>
-</div>
-@endsection
+    @include('layouts.partials.footer')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
+</body>
+</html>
