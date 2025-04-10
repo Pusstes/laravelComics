@@ -1,0 +1,56 @@
+/* ======= ESTILOS PARA TIENDA ======= */
+.contenedor-tienda {
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.filtros {
+    margin-bottom: 20px;
+}
+
+.filtros input, .filtros select {
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.productos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.producto {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.producto:hover {
+    transform: scale(1.05);
+}
+
+.producto img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.btn-agregar {
+    background: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-agregar:hover {
+    background: #e64a19;
+}
