@@ -32,7 +32,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-4">
                                 <label for="nombre" class="form-label comic-label">
-                                    <i class="fas fa-book-open me-2"></i>Nombre del Distribuidor
+                                    <i class="fas fa-building me-2"></i>Nombre del Distribuidor
                                 </label>
                                 <input type="text" class="form-control form-control-lg bg-light" 
                                        id="nombre" name="nombre" placeholder="Ej: DC Comics Distribution" required>
@@ -43,7 +43,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-4">
                                 <label for="contacto" class="form-label comic-label">
-                                    <i class="fas fa-user-circle me-2"></i>Persona de Contacto
+                                    <i class="fas fa-user me-2"></i>Persona de Contacto
                                 </label>
                                 <input type="text" class="form-control bg-light" 
                                        id="contacto" name="contacto" placeholder="Ej: Bruce Wayne" required>
@@ -63,7 +63,7 @@
                         </div>
                         
                         <div class="row">
-                            <div class="col-md-6 mb-4">
+                            <div class="col-md-12 mb-4">
                                 <label for="email" class="form-label comic-label">
                                     <i class="fas fa-envelope me-2"></i>Email
                                 </label>
@@ -75,19 +75,6 @@
                                            id="email" name="email" placeholder="contacto@distribuidor.com" required>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-4">
-                                <label for="tipo" class="form-label comic-label">
-                                    <i class="fas fa-tags me-2"></i>Tipo de Comics
-                                </label>
-                                <select class="form-select bg-light" id="tipo" name="tipo">
-                                    <option value="">Selecciona un tipo</option>
-                                    <option value="manga">Manga / Comics Japoneses</option>
-                                    <option value="american">Comics Americanos</option>
-                                    <option value="european">Comics Europeos</option>
-                                    <option value="independiente">Comics Independientes</option>
-                                    <option value="varios">Varios</option>
-                                </select>
-                            </div>
                         </div>
                         
                         <div class="mb-4">
@@ -95,53 +82,7 @@
                                 <i class="fas fa-map-marker-alt me-2"></i>Dirección
                             </label>
                             <textarea class="form-control bg-light" id="direccion" name="direccion" 
-                                       rows="3" placeholder="Dirección completa del distribuidor"></textarea>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="form-label comic-label">
-                                <i class="fas fa-bookmark me-2"></i>Géneros que distribuye
-                            </label>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="genero1" name="generos[]" value="superheroes">
-                                        <label class="form-check-label" for="genero1">Superhéroes</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="genero2" name="generos[]" value="fantasia">
-                                        <label class="form-check-label" for="genero2">Fantasía</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="genero3" name="generos[]" value="ciencia_ficcion">
-                                        <label class="form-check-label" for="genero3">Ciencia Ficción</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="genero4" name="generos[]" value="terror">
-                                        <label class="form-check-label" for="genero4">Terror</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="genero5" name="generos[]" value="novela_grafica">
-                                        <label class="form-check-label" for="genero5">Novela Gráfica</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="genero6" name="generos[]" value="otros">
-                                        <label class="form-check-label" for="genero6">Otros</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="notas" class="form-label comic-label">
-                                <i class="fas fa-sticky-note me-2"></i>Notas Adicionales
-                            </label>
-                            <textarea class="form-control bg-light" id="notas" name="notas" 
-                                      rows="2" placeholder="Información adicional relevante"></textarea>
+                                      rows="3" placeholder="Dirección completa del distribuidor" required></textarea>
                         </div>
                        
                         <div class="d-flex justify-content-between mt-5">

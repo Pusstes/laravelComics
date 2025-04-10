@@ -156,18 +156,19 @@
                         </div>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <div class="empty-state">
-                                    <img src="/assets/images/empty-comics.svg" alt="No hay distribuidores" 
-                                         style="max-height: 150px;" class="mb-3">
-                                    <h4 class="text-muted">¡No hay distribuidores registrados!</h4>
-                                    <p class="text-muted mb-3">Agrega tu primer distribuidor de comics</p>
-                                    <a href="{{ route('proveedores.create') }}" class="btn btn-primary">
-                                        <i class="fas fa-plus-circle me-2"></i>Agregar distribuidor
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr class="empty-message">
+                                <td colspan="6" class="text-center py-5">
+                                    <div class="empty-state">
+                                        <img src="/assets/images/empty-comics.svg" alt="No hay distribuidores" 
+                                            style="max-height: 150px;" class="mb-3">
+                                        <h4 class="text-muted">¡No hay distribuidores registrados!</h4>
+                                        <p class="text-muted mb-3">Agrega tu primer distribuidor de comics</p>
+                                        <a href="{{ route('proveedores.create') }}" class="btn btn-primary">
+                                            <i class="fas fa-plus-circle me-2"></i>Agregar distribuidor
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -255,25 +256,63 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return; // Verificamos que exista el input de búsqueda
+    
     const table = document.getElementById('proveedoresTable');
-    const rows = table.getElementsByTagName('tr');
+    if (!table) return; // Verificamos que exista la tabla
+    
+    // Encontrar tbody y sus filas de datos (excluir encabezados)
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
     
     searchInput.addEventListener('keyup', function() {
-        const term = searchInput.value.toLowerCase();
+        const term = searchInput.value.toLowerCase().trim();
         
-        for (let i = 1; i < rows.length; i++) {
-            const row = rows[i];
-            const cells = row.getElementsByTagName('td');
-            let shouldShow = false;
+        // Seleccionamos solo las filas que son distribuidores (excluyendo mensajes vacíos)
+        const dataRows = tbody.querySelectorAll('tr:not(.empty-message)');
+        
+        dataRows.forEach(function(row) {
+            if (row.cells.length <= 1) return; // Ignorar filas especiales
             
-            for (let j = 0; j < cells.length; j++) {
-                if (cells[j].textContent.toLowerCase().indexOf(term) > -1) {
-                    shouldShow = true;
-                    break;
-                }
+            let shouldShow = false;
+            const rowText = row.textContent.toLowerCase();
+            
+            // Revisar si el término de búsqueda está en cualquier parte de la fila
+            if (rowText.includes(term)) {
+                shouldShow = true;
             }
             
             row.style.display = shouldShow ? '' : 'none';
+        });
+        
+        // Verificar si hay resultados visibles
+        const visibleRows = Array.from(dataRows).filter(row => row.style.display !== 'none');
+        
+        // Mostrar mensaje de "no hay resultados" si es necesario
+        let noResultsRow = tbody.querySelector('.no-results-message');
+        
+        if (visibleRows.length === 0 && term !== '') {
+            if (!noResultsRow) {
+                noResultsRow = document.createElement('tr');
+                noResultsRow.className = 'no-results-message';
+                noResultsRow.innerHTML = `
+                    <td colspan="6" class="text-center py-4">
+                        <div class="text-muted">
+                            <i class="fas fa-search me-2"></i>
+                            No se encontraron distribuidores con el término: "${term}"
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(noResultsRow);
+            } else {
+                noResultsRow.querySelector('td div').innerHTML = `
+                    <i class="fas fa-search me-2"></i>
+                    No se encontraron distribuidores con el término: "${term}"
+                `;
+                noResultsRow.style.display = '';
+            }
+        } else if (noResultsRow) {
+            noResultsRow.style.display = 'none';
         }
     });
 });
