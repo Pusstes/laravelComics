@@ -1,12 +1,13 @@
-@extends('layouts.app', ['title' => 'Productos'])
+
+@extends('layouts.app', ['title' => 'Entradas'])
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>
-        <i class="fas fa-box-open me-2"></i>Productos
+    <h1 class="fw-bold text-dark">
+        <i class="fas fa-list-alt me-2 text-success"></i>Entradas
     </h1>
-    <a href="{{ route('productos.create') }}" class="btn btn-primary">
-        <i class="fas fa-plus me-1"></i>Nuevo Producto
+    <a href="{{ route('entradas.create') }}" class="btn btn-success rounded-pill px-4">
+        <i class="fas fa-plus me-1"></i>Agregar Nueva Entrada
     </a>
 </div>
 
@@ -17,44 +18,37 @@
 </div>
 @endif
 
-<div class="card shadow-sm">
+<div class="card border-0 shadow rounded-4">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-hover align-middle text-center">
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Categoría</th>
-                        <th>Proveedor</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($productos as $producto)
+                    @forelse($entradas as $entrada)
                     <tr>
-                        <td>{{ $producto['id'] }}</td>
-                        <td>{{ $producto['nombre'] }}</td>
-                        <td>${{ number_format($producto['precio'], 2) }}</td>
-                        <td>{{ $categoriasMap[$producto['id_categoria']] ?? 'N/A' }}</td>
-                        <td>{{ $proveedoresMap[$producto['id_proveedor']] ?? 'N/A' }}</td>
+                        <td>{{ $entrada['id'] }}</td>
+                        <td>{{ $entrada['nombre'] }}</td>
                         <td>
-                            <div class="d-flex gap-2">
-                                <a href="{{ route('productos.show', $producto['id']) }}" 
-                                   class="btn btn-sm btn-info" title="Ver">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ route('entradas.show', $entrada['id']) }}" 
+                                   class="btn btn-sm btn-outline-success" title="Ver detalles">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('productos.edit', $producto['id']) }}" 
-                                   class="btn btn-sm btn-warning" title="Editar">
+                                <a href="{{ route('entradas.edit', $entrada['id']) }}" 
+                                   class="btn btn-sm btn-outline-warning" title="Editar">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('productos.destroy', $producto['id']) }}" 
-                                      method="POST" class="d-inline">
+                                <form action="{{ route('entradas.destroy', $entrada['id']) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" 
-                                            title="Eliminar" onclick="return confirm('¿Estás seguro?')">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                            onclick="return confirm('¿Estás seguro?')" title="Eliminar">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
@@ -63,7 +57,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center">No hay productos registrados</td>
+                        <td colspan="3" class="text-center text-muted">No hay entradas registradas</td>
                     </tr>
                     @endforelse
                 </tbody>

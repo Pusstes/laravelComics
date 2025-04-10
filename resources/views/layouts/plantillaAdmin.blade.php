@@ -1,54 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>@yield('Titulo')</title>
-    @vite(['resources/js/app.js'])
-    @yield('css-index')
-    @yield('css-gestionProductos')
-    @yield('css-gestionInventario')
-    @yield('css-gestionPedidos')
-    @yield('css-gestionUsuarios')
-    @yield('css-gestionPromociones')
-    @yield('css-Reportes')
-    @yield('css-configuracion')
-    @yield('css-gestionProvedores')
-</head>
-<body>
-    <aside class="sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-            <li><a href="{{route('rutainicioAdmin')}}"><i class="fas fa-chart-line"></i> Resumen General</a></li>
-            <li><a href="{{route('rutagestionProductos')}}"><i class="fas fa-box"></i> Gestión de Productos</a></li>
-            <li><a href="{{route('rutagestionInventario')}}"><i class="fas fa-warehouse"></i> Gestión de Inventario</a></li>
-            <li><a href="{{route('rutagestionPedidos')}}"><i class="fas fa-shopping-cart"></i> Gestión de Pedidos</a></li>
-            <li><a href="{{route('rutagestionUsuarios')}}"><i class="fas fa-users"></i> Gestión de Usuarios</a></li>
-            <li><a href="{{route('rutagestionPromociones')}}"><i class="fas fa-tags"></i> Gestión de Promociones</a></li>
-            <li><a href="{{route('rutareportes')}}"><i class="fas fa-chart-pie"></i> Reporte de Análisis</a></li>
-            <li><a href="{{route('rutaconfiguracion')}}"><i class="fas fa-cogs"></i> Configuración del Sistema</a></li>
-            <li><a href="{{route('rutagestionProvedores')}}"><i class="fas fa-truck"></i> Gestión de Proveedores</a></li>
-            <li><a href="{{route('rutaindex')}}"><i class="fas fa-home"></i> Cerrar Sesion</a></li>
 
-        </ul>
-    </aside>
+@extends('layouts.app', ['title' => 'Administrador'])
 
-    <div class="container">
-        @yield('contenidoInicioAdmin')
-        @yield('contenidogestionProductos')
-        @yield('contenidogestionInventario')
-        @yield('contenidogestionPedidos')
-        @yield('contenidogestionUsuarios')
-        @yield('contenidogestionPromociones')
-        @yield('contenidoReportes')
-        @yield('contenidoConfiguracion')
-        @yield('contenidogestionProvedores')
+@section('content')
+<div class="container mt-4">
+    <div class="card border-0 shadow-lg rounded-4">
+        <div class="card-header bg-danger text-white rounded-top-4">
+            <h5 class="mb-0">
+                <i class="fas fa-shield-alt me-2"></i>Panel de Administrador
+            </h5>
+        </div>
+        <div class="card-body">
+            <h4 class="fw-bold">Gestiona la aplicación y sus usuarios</h4>
+            <div class="d-flex justify-content-end gap-2">
+                <a href="{{ route('usuarios.index') }}" class="btn btn-success rounded-pill px-4">
+                    <i class="fas fa-users me-1"></i>Ver Usuarios
+                </a>
+                <a href="{{ route('configuracion.index') }}" class="btn btn-warning rounded-pill px-4">
+                    <i class="fas fa-cogs me-1"></i>Configuración
+                </a>
+            </div>
+        </div>
     </div>
-
-
-</body>
-</html>
+</div>
+@endsection
