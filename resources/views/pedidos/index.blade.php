@@ -39,16 +39,16 @@
                         <td>{{ \Carbon\Carbon::parse($pedido['fecha'])->format('d/m/Y') }}</td>
                         <td>
                             <div class="d-flex gap-2">
-                                <a href="{{ route('pedidos.show', $pedido['id']) }}" 
+                                <a href="{{ route('pedidos.show', $pedido['id']) }}"
                                    class="btn btn-sm btn-info" title="Ver">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <form action="{{ route('pedidos.destroy', $pedido['id']) }}" 
-                                      method="POST" class="d-inline">
+                                <form action="{{ route('pedidos.destroy', $pedido['id']) }}"
+                                      method="POST" class="d-inline" id="delete-form-{{ $pedido['id'] }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" 
-                                            title="Eliminar" onclick="return confirm('¿Estás seguro?')">
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                            title="Eliminar" onclick="confirmDelete({{ $pedido['id'] }})">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
@@ -65,4 +65,25 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function confirmDelete(pedidoId) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Este pedido será eliminado permanentemente.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(`delete-form-${pedidoId}`).submit();
+        }
+    });
+}
+</script>
+@endpush
+
 @endsection

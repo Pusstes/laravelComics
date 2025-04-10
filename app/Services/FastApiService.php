@@ -11,7 +11,7 @@ class FastApiService
 
     public function __construct()
     {
-        $this->baseUri = env('FASTAPI_URL', 'http://localhost:5001');
+        $this->baseUri = env('FASTAPI_URL', 'http://localhost:8000');
         $this->client = new Client([
             'base_uri' => $this->baseUri,
             'headers' => [

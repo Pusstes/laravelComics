@@ -10,7 +10,7 @@
                 </h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('pedidos.store') }}" method="POST">
+                <form action="{{ route('pedidos.store') }}" method="POST" id="pedido-form">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -32,7 +32,7 @@
                                 <select class="form-select producto-select" name="productos[0][id_producto]" required>
                                     <option value="">Seleccione...</option>
                                     @foreach($productos as $producto)
-                                    <option value="{{ $producto['id'] }}" 
+                                    <option value="{{ $producto['id'] }}"
                                         data-precio="{{ $producto['precio'] }}">
                                         {{ $producto['nombre'] }} (${{ number_format($producto['precio'], 2) }})
                                     </option>
@@ -41,12 +41,12 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Cantidad</label>
-                                <input type="number" class="form-control cantidad" 
+                                <input type="number" class="form-control cantidad"
                                        name="productos[0][cantidad]" min="1" value="1" required>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Precio Unitario</label>
-                                <input type="number" step="0.01" class="form-control precio-unitario" 
+                                <input type="number" step="0.01" class="form-control precio-unitario"
                                        name="productos[0][precio_unitario]" readonly>
                             </div>
                             <div class="col-md-1 d-flex align-items-end">
@@ -77,7 +77,7 @@
                         <a href="{{ route('pedidos.index') }}" class="btn btn-secondary me-md-2">
                             <i class="fas fa-times me-1"></i>Cancelar
                         </a>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
                             <i class="fas fa-save me-1"></i>Guardar Pedido
                         </button>
                     </div>
@@ -92,7 +92,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Variables para el contador de productos
     let productoCounter = 1;
-    
+
     // Función para calcular el total
     function calcularTotal() {
         let total = 0;
@@ -104,28 +104,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('total').value = total.toFixed(2);
         document.getElementById('total-display').textContent = '$' + total.toFixed(2);
     }
-    
+
     // Evento para agregar nuevo producto
     document.getElementById('btn-add-producto').addEventListener('click', function() {
         const container = document.getElementById('productos-container');
         const newItem = document.querySelector('.producto-item').cloneNode(true);
-        
+
         // Actualizar los nombres de los campos
         const newIndex = productoCounter++;
         newItem.innerHTML = newItem.innerHTML.replace(/productos\[0\]/g, `productos[${newIndex}]`);
-        
+
         // Limpiar valores
         newItem.querySelector('.producto-select').selectedIndex = 0;
         newItem.querySelector('.cantidad').value = 1;
         newItem.querySelector('.precio-unitario').value = '';
-        
+
         // Agregar al contenedor
         container.appendChild(newItem);
-        
+
         // Agregar eventos al nuevo elemento
         agregarEventosProducto(newItem);
     });
-    
+
     // Función para agregar eventos a un elemento producto
     function agregarEventosProducto(item) {
         // Evento para cambiar producto
@@ -134,10 +134,10 @@ document.addEventListener('DOMContentLoaded', function() {
             item.querySelector('.precio-unitario').value = precio;
             calcularTotal();
         });
-        
+
         // Evento para cambiar cantidad
         item.querySelector('.cantidad').addEventListener('input', calcularTotal);
-        
+
         // Evento para eliminar producto
         item.querySelector('.btn-remove-producto').addEventListener('click', function() {
             if (document.querySelectorAll('.producto-item').length > 1) {
@@ -148,12 +148,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
+
     // Agregar eventos al primer producto
     agregarEventosProducto(document.querySelector('.producto-item'));
-    
+
     // Calcular total inicial
     calcularTotal();
+
+    // Confirmación de la eliminación del pedido
+    document.getElementById('submit-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas guardar este pedido?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, guardar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('pedido-form').submit();
+            }
+        });
+    });
 });
 </script>
 @endpush
